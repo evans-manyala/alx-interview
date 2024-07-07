@@ -1,11 +1,7 @@
 #!/usr/bin/python3
 """
-Lockboxes Python Code
-"""
-
-"""
-You have a lockbox of n number of boxes in front of you. Each box is
-locked by a sequence of keys in other boxes. Can you open all the boxes?
+Defines a function that determines if a box containing a list
+of lists can be opened using keys stored in the lists
 """
 
 
@@ -22,7 +18,7 @@ def canUnlockAll(boxes):
             opened.add(box_index)
 
             for key in boxes[box_index]:
-                if key < n:
+                if key < n and key not in opened:
                     queue.append(key)
 
     return len(opened) == n
