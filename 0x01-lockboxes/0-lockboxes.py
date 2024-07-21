@@ -21,4 +21,4 @@ def canUnlockAll(boxes):
                 if key < n and key not in opened:
                     queue.append(key)
 
-    return all(opened)
+    return len(opened) == n
