@@ -9,7 +9,7 @@ def canUnlockAll(boxes):
     """ Determines if all the boxes can be opened. """
     n = len(boxes)
     opened = set()
-    queue = (0)
+    queue = [0]
 
     while queue:
         box_index = queue.pop(0)
@@ -22,3 +22,4 @@ def canUnlockAll(boxes):
                     queue.append(key)
 
     return len(opened) == n
+    
