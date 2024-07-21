@@ -7,9 +7,6 @@ of lists can be opened using keys stored in the lists
 
 def canUnlockAll(boxes):
     """ Determines if all the boxes can be opened. """
-    if not boxes:
-        return False
-
     n = len(boxes)
     opened = set()
     queue = (0)
