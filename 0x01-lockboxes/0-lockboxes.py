@@ -3,13 +3,14 @@
 Defines a function that determines if a box containing a list
 of lists can be opened using keys stored in the lists
 """
+from collections import deque
 
 
 def canUnlockAll(boxes):
     """ Determines if all the boxes can be opened. """
     n = len(boxes)
     opened = set()
-    queue = [0]
+    queue = deque([0])
 
     while queue:
         box_index = queue.pop(0)
