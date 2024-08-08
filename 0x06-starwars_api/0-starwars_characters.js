@@ -2,7 +2,7 @@
 
 const request = require('request');
 
-const baseUrl = 'https://swapi.dev/api/films/';
+const baseUrl = 'https://swapi-api.alx-tools.com/api/films/';
 const movieId = process.argv[2];
 
 if (!movieId || isNaN(movieId) || movieId < 1 || movieId > 7) {
