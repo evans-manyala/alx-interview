@@ -1,45 +1,37 @@
 #!/usr/bin/node
 
-const request = require('request');
+const axios = require('axios');
 
 const baseUrl = 'https://swapi.dev/api/films/';
 const movieId = process.argv[2];
 
-if (!movieId || isNaN(movieId) || movieId < 1 || movieId > 7) {
-  console.log('Please provide a valid movie ID (1-7).');
+if (!movieId || isNaN(movieId) || movieId < 1 || movieId > 6) {
+  console.log('Please provide a valid movie ID (1-6).');
   process.exit(1);
 }
 
 const filmUrl = `${baseUrl}${movieId}/`;
 
-request(filmUrl, (error, response, body) => {
-  if (error) {
-    console.error(`An error occurred: ${error}`);
-    return;
-  }
+axios.get(filmUrl)
+  .then(response => {
+    const filmData = response.data;
+    const characterUrls = filmData.characters;
 
-  if (response.statusCode !== 200) {
-    console.error(`Failed to retrieve film data. Status code: ${response.statusCode}`);
-    return;
-  }
+    // Fetch each character
+    const characterPromises = characterUrls.map(url =>
+      axios.get(url)
+        .then(response => {
+          const characterData = response.data;
+          console.log(characterData.name);
+        })
+        .catch(error => {
+          console.error(`An error occurred while fetching character data: ${error.message}`);
+        })
+    );
 
-  const filmData = JSON.parse(body);
-  const characterUrls = filmData.characters;
-
-  characterUrls.forEach(url => {
-    request(url, (error, response, body) => {
-      if (error) {
-        console.error(`An error occurred while fetching character data: ${error}`);
-        return;
-      }
-
-      if (response.statusCode !== 200) {
-        console.error(`Failed to retrieve character data. Status code: ${response.statusCode}`);
-        return;
-      }
-
-      const characterData = JSON.parse(body);
-      console.log(characterData.name);
-    });
+    // Wait for all character data to be fetched
+    return Promise.all(characterPromises);
+  })
+  .catch(error => {
+    console.error(`An error occurred: ${error.message}`);
   });
-});
