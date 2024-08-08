@@ -1,45 +1,28 @@
 #!/usr/bin/node
+// A script that prints all characters of a Star Wars movie
 
 const request = require('request');
+const util = require('util');
 
+const requestPromise = util.promisify(request);
 const baseUrl = 'https://swapi-api.alx-tools.com/api/films/';
-const movieId = process.argv[2]; // First positional argument
+const movieId = process.argv[2];
 
-if (!movieId || isNaN(movieId) || movieId < 1 || movieId > 6) {
-    console.log("Please provide a valid movie ID (1-6).");
-    process.exit(1);
+async function getMovieCharacters (movieId) {
+  try {
+    const movieResponse = await requestPromise(`${baseUrl}${movieId}`);
+    const movieData = JSON.parse(movieResponse.body);
+
+    const characterPromises = movieData.characters.map(characterUrl => requestPromise(characterUrl));
+    const characterResponses = await Promise.all(characterPromises);
+
+    characterResponses.forEach(characterResponse => {
+      const characterData = JSON.parse(characterResponse.body);
+      console.log(characterData.name);
+    });
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
 }
 
-const filmUrl = `${baseUrl}${movieId}/`;
-
-request(filmUrl, (error, response, body) => {
-    if (error) {
-        console.error(`An error occurred: ${error}`);
-        return;
-    }
-    
-    if (response.statusCode !== 200) {
-        console.error(`Failed to retrieve film data. Status code: ${response.statusCode}`);
-        return;
-    }
-    
-    const filmData = JSON.parse(body);
-    const characterUrls = filmData.characters;
-    
-    characterUrls.forEach(url => {
-        request(url, (error, response, body) => {
-            if (error) {
-                console.error(`An error occurred while fetching character data: ${error}`);
-                return;
-            }
-            
-            if (response.statusCode !== 200) {
-                console.error(`Failed to retrieve character data. Status code: ${response.statusCode}`);
-                return;
-            }
-            
-            const characterData = JSON.parse(body);
-            console.log(characterData.name);
-        });
-    });
-});
+getMovieCharacters(movieId);
