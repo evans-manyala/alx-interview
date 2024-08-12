@@ -2,7 +2,7 @@
 
 For the “0. Rotate 2D Matrix” project, you are tasked with implementing an in-place algorithm to rotate an n x n 2D matrix by 90 degrees clockwise. This challenge requires a good understanding of matrix manipulation and in-place operations in Python. Below are the key concepts and resources that you need to grasp in order to successfully complete this project.
 
-## Concepts Needed:
+## Concepts Needed
 
 1. Matrix Representation in Python:
 
@@ -27,7 +27,7 @@ For the “0. Rotate 2D Matrix” project, you are tasked with implementing an i
     - Using nested loops to iterate through 2D data structures like matrices.
     - Modifying elements within nested loops to achieve the desired rotation.
 
-## Resources:
+## Resources
 
 - Python Official Documentation:
 
@@ -62,7 +62,7 @@ By understanding these concepts and utilizing the provided resources, you will b
 - All modules and functions must be documented
 - All your files must be executable
 
-# Tasks 0.
+## Tasks 0
 
 ## Rotate 2D Matrix
 
