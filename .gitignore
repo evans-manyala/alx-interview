@@ -1,2 +1,4 @@
 *-main.py
 main_*.py
+node_modules/
+__pycache__/
