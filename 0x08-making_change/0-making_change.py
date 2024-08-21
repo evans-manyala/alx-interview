@@ -6,17 +6,24 @@ of coins needed to meet a given total.
 
 
 def makeChange(coins, total):
+    """
+    Return the fewest number of coins needed to meet a given total
+    Return:
+        Number of coins or -1 if meeting the total is not possible
+    """
     if total <= 0:
         return 0
-
-    if total > sum(coins):
+    if not coins:
         return -1
-
-    numCoins = [total + 1] * (total + 1)
-    numCoins[0] = 0
-
-    for coin in sorted(coins, reverse=True):
+    
+    # Initialize DP array
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0
+    
+    # Fill the DP array
+    for coin in coins:
         for i in range(coin, total + 1):
-            numCoins[i] = min(numCoins[i], numCoins[i - coin] + 1)
-
-    return numCoins[total] if numCoins[total] != total + 1 else -1
+            dp[i] = min(dp[i], dp[i - coin] + 1)
+    
+    # Return the result
+    return dp[total] if dp[total] != float('inf') else -1
