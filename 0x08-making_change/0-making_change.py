@@ -9,6 +9,9 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
+    if total > sum(coins):
+        return -1
+
     numCoins = [total + 1] * (total + 1)
     numCoins[0] = 0
 
