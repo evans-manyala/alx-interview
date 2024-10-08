@@ -41,7 +41,16 @@ def isWinner(x, nums):
     maria_wins = 0
     ben_wins = 0
 
+    if x <= 0 or not nums:  # Invalid inputs
+
+        return None
+
     for n in nums:
+
+        if n < 1:  # No game for non-positive numbers
+
+            continue
+
         prime_count = count_primes_up_to(n)
 
         # Determine winner based on the number of prime numbers
