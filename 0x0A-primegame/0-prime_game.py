@@ -4,12 +4,13 @@ Function that generates a list of prime numbers to
 determine the winner of the game
 """
 
+
 def sieve(n):
     """
-    Function generates a list of primes up to n 
+    Function generates a list of primes up to n
     using the Sieve of Eratosthenes.
     """
-    
+
     is_prime = [True] * (n + 1)
     p = 2
     while p * p <= n:
@@ -18,6 +19,7 @@ def sieve(n):
                 is_prime[i] = False
         p += 1
     return [p for p in range(2, n + 1) if is_prime[p]]
+
 
 def count_primes_up_to(n):
     """
@@ -30,6 +32,7 @@ def count_primes_up_to(n):
         primes = [p for p in primes if p % prime != 0]
         count += 1
     return count
+
 
 def isWinner(x, nums):
     """
