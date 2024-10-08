@@ -46,7 +46,7 @@ def isWinner(x, nums):
             ben_wins += 1
         else:
             prime_count = count_primes_up_to(n)
-            if prime_count % 2 == 1:
+            if prime_count % 2 == 0:  # Check if prime count is even
                 maria_wins += 1
             else:
                 ben_wins += 1
